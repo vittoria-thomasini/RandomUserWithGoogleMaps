@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
 
     <TextView
         android:id="@+id/txt_title"
@@ -15,8 +16,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="108dp"
-        android:layout_height="83dp"
+        android:layout_width="157dp"
+        android:layout_height="129dp"
         android:layout_below="@+id/txt_title"
         android:layout_alignLeft="@+id/txt_title"
         android:layout_alignParentLeft="true"
@@ -160,7 +161,7 @@
         android:id="@+id/txt_out_longitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_out_coordinates"
+        android:layout_below="@+id/txt_out_latitude"
         android:layout_alignParentRight="true"
         android:layout_centerHorizontal="true" />
 
@@ -197,7 +198,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/txt_out_coordinates"
+        android:id="@+id/txt_out_latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_out_phone"
@@ -245,19 +246,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_phone"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="#00BCD4"
         android:onClick="acionaRandom"
-        android:text="Buscar" />
+        android:text="Buscar"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btn_localization"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_phone"
-        android:layout_marginTop="87dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="140dp"
         android:layout_marginEnd="0dp"
         android:layout_toStartOf="@+id/txt_out_phone"
+        android:backgroundTint="#00BCD4"
         android:onClick="acionaMaps"
-        android:text="Localização" />
+        android:text="Localização"
+        android:textSize="18sp" />
 
 </RelativeLayout>

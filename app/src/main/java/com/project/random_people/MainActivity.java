@@ -1,10 +1,13 @@
 package com.project.random_people;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,25 +45,37 @@ public class MainActivity extends AppCompatActivity {
         senha = (TextView)findViewById(R.id.txt_out_password);
         nascimento = (TextView)findViewById(R.id.txt_out_birthday);
         telefone = (TextView)findViewById(R.id.txt_out_phone);
-        latitude = (TextView)findViewById(R.id.txt_out_coordinates);
+        latitude = (TextView)findViewById(R.id.txt_out_latitude);
         longitude = (TextView)findViewById(R.id.txt_out_longitude);
+        Button btn_localization = (Button)findViewById(R.id.btn_localization);
+        btn_localization.setVisibility(View.INVISIBLE);
     }
-    public void acionaRandom(View view){
+    public void acionaRandom(View view ){
         GetJson download = new GetJson();
         //Chama Async Task
         download.execute();
+
+        if(latitude != null && longitude !=null)
+        {
+            Button btn_localization = (Button)findViewById(R.id.btn_localization);
+            btn_localization.setVisibility(View.VISIBLE);
+        }
     }
-//     public void acionaMaps(View view){
-//         Button btnMaps = (Button) findViewById(R.id.button2);
-//         btnMaps.setOnClickListener(new View.OnClickListener() {
-//             public void onClick(View v) {
-//                     Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-//                     intent.putExtra("latitude", (Parcelable) latitude);
-//                     intent.putExtra("longitude", (Parcelable) longitude);
-//                     startActivity(intent);
-//             }
-//         });
-//     }
+     public void acionaMaps(View view) {
+             Button btnMaps = (Button) findViewById(R.id.btn_localization);
+             btnMaps.setOnClickListener(new View.OnClickListener() {
+                 public void onClick(View v) {
+                     String lati = latitude.getText().toString();
+                     String longi = longitude.getText().toString();
+                     Log.d("MainActivity Latitude", lati);
+                     Log.d("MainActivity Longitude", longi);
+                     Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                     intent.putExtra("latitude", lati);
+                     intent.putExtra("longitude", longi);
+                     startActivity(intent);
+                 }
+             });
+         }
     private class GetJson extends AsyncTask<Void, Void, PessoaObj> {
 
         @Override
