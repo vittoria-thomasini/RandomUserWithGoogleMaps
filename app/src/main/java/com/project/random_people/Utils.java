@@ -2,6 +2,7 @@ package com.project.random_people;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -33,36 +35,42 @@ public class Utils {
             JSONArray array = jsonObj.getJSONArray("results");
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date data;
 
             JSONObject objArray = array.getJSONObject(0);
 
-            JSONObject obj = objArray.getJSONObject("user");
-            //Atribui os objetos que estão nas camadas mais altas
-            pessoa.setEmail(obj.getString("email"));
-            pessoa.setUsername(obj.getString("username"));
-            pessoa.setSenha(obj.getString("password"));
-            pessoa.setTelefone(obj.getString("phone"));
-            data = new Date(obj.getLong("dob")*1000);
-            pessoa.setNascimento(sdf.format(data));
+            pessoa.setGenero(objArray.getString("gender"));
 
-            //Nome da pessoa é um objeto, instancia um novo JSONObject
-            JSONObject nome = obj.getJSONObject("name");
-            pessoa.setNome(nome.getString("first"));
-            pessoa.setSobrenome(nome.getString("last"));
+                //Nome da pessoa é um objeto, instancia um novo JSONObject
+               JSONObject nome = objArray.getJSONObject("name");
+               pessoa.setOcupacao(nome.getString("title"));
+               pessoa.setNome(nome.getString("first"));
+               pessoa.setSobrenome(nome.getString("last"));
 
-            //Endereco tambem é um Objeto
-            JSONObject endereco = obj.getJSONObject("location");
-            pessoa.setEndereco(endereco.getString("street"));
-            pessoa.setEstado(endereco.getString("state"));
-            pessoa.setCidade(endereco.getString("city"));
+            pessoa.setEmail(objArray.getString("email"));
 
-//            JSONObject coordinates = obj.getJSONObject("coordinates");
-            pessoa.setLatitude(endereco.getString("latitude"));
-            pessoa.setLongitude(endereco.getString("longitude"));
+                JSONObject login = objArray.getJSONObject("login");
+                pessoa.setUsername(login.getString("username"));
+                pessoa.setSenha(login.getString("password"));
 
-            //Imagem eh um objeto
-            JSONObject foto = obj.getJSONObject("picture");
+            pessoa.setTelefone(objArray.getString("phone"));
+
+                JSONObject dob = objArray.getJSONObject("dob");
+                pessoa.setNascimento(dob.getString("date"));
+
+                JSONObject endereco = objArray.getJSONObject("location");
+                    JSONObject rua = endereco.getJSONObject("street");
+                    pessoa.setEndereco(rua.getString("name"));
+                    pessoa.setComplemento(rua.getString("number"));
+
+                pessoa.setEstado(endereco.getString("state"));
+                pessoa.setCidade(endereco.getString("city"));
+
+                JSONObject coordinates = endereco.getJSONObject("coordinates");
+                pessoa.setLatitude(coordinates.getString("latitude"));
+                pessoa.setLongitude(coordinates.getString("longitude"));
+
+           //Imagem eh um objeto
+            JSONObject foto = objArray.getJSONObject("picture");
             pessoa.setFoto(baixarImagem(foto.getString("large")));
 
             return pessoa;

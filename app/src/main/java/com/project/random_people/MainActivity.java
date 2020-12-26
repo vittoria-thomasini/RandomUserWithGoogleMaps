@@ -1,17 +1,10 @@
 package com.project.random_people;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.graphics.Bitmap;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,42 +23,44 @@ public class MainActivity extends AppCompatActivity {
     private TextView latitude;
     private TextView longitude;
     private ProgressDialog load;
+    private TextView genero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nome = (TextView)findViewById(R.id.textView5);
-        sobrenome = (TextView)findViewById(R.id.textView11);
-        email = (TextView)findViewById(R.id.textView8);
-        endereco = (TextView)findViewById(R.id.textView7);
-        cidade = (TextView)findViewById(R.id.textView4);
-        estado = (TextView)findViewById(R.id.textView3);
-        username = (TextView)findViewById(R.id.textView2);
-        senha = (TextView)findViewById(R.id.textView10);
-        nascimento = (TextView)findViewById(R.id.textView9);
-        telefone = (TextView)findViewById(R.id.textView12);
         foto = (ImageView)findViewById(R.id.imageView);
-        latitude = (TextView)findViewById(R.id.textView33);
-        longitude = (TextView)findViewById(R.id.textView35);
+        //genero = (TextView)findViewById(R.id.txt_out_name);
+        nome = (TextView)findViewById(R.id.txt_out_name);
+        sobrenome = (TextView)findViewById(R.id.txt_out_last_name);
+        email = (TextView)findViewById(R.id.txt_out_email);
+        endereco = (TextView)findViewById(R.id.txt_out_address);
+        cidade = (TextView)findViewById(R.id.txt_out_city);
+        estado = (TextView)findViewById(R.id.txt_out_state);
+        username = (TextView)findViewById(R.id.txt_out_username);
+        senha = (TextView)findViewById(R.id.txt_out_password);
+        nascimento = (TextView)findViewById(R.id.txt_out_birthday);
+        telefone = (TextView)findViewById(R.id.txt_out_phone);
+        latitude = (TextView)findViewById(R.id.txt_out_coordinates);
+        longitude = (TextView)findViewById(R.id.txt_out_longitude);
     }
     public void acionaRandom(View view){
         GetJson download = new GetJson();
         //Chama Async Task
         download.execute();
     }
-     public void acionaMaps(View view){
-         Button btnMaps = (Button) findViewById(R.id.button2);
-         btnMaps.setOnClickListener(new View.OnClickListener() {
-             public void onClick(View v) {
-                     Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                     intent.putExtra("latitude", (Parcelable) latitude);
-                     intent.putExtra("longitude", (Parcelable) longitude);
-                     startActivity(intent);
-             }
-         });
-     }
+//     public void acionaMaps(View view){
+//         Button btnMaps = (Button) findViewById(R.id.button2);
+//         btnMaps.setOnClickListener(new View.OnClickListener() {
+//             public void onClick(View v) {
+//                     Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+//                     intent.putExtra("latitude", (Parcelable) latitude);
+//                     intent.putExtra("longitude", (Parcelable) longitude);
+//                     startActivity(intent);
+//             }
+//         });
+//     }
     private class GetJson extends AsyncTask<Void, Void, PessoaObj> {
 
         @Override
@@ -82,10 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(PessoaObj pessoa){
-            nome.setText(pessoa.getNome().substring(0,1).toUpperCase()+pessoa.getNome().substring(1));
-            sobrenome.setText(pessoa.getSobrenome().substring(0,1).toUpperCase()+pessoa.getSobrenome().substring(1));
+            //genero.setText(pessoa.getGenero());
+            nome.setText(pessoa.getNome());
+            sobrenome.setText(pessoa.getSobrenome());
             email.setText(pessoa.getEmail());
-            endereco.setText(pessoa.getEndereco());
+            endereco.setText(pessoa.getEndereco() + "," + pessoa.getComplemento());
             cidade.setText(pessoa.getCidade().substring(0,1).toUpperCase()+pessoa.getCidade().substring(1));
             estado.setText(pessoa.getEstado());
             username.setText(pessoa.getUsername());

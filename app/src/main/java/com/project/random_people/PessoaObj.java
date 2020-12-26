@@ -16,6 +16,23 @@ public class PessoaObj {
     private Bitmap foto;
     private String latitude;
     private String longitude;
+    private String coordinates;
+    private String genero;
+    private String ocupacao;
+    private String complemento;
+
+    public String getGenero() {return genero;}
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getOcupacao() {
+        return ocupacao;
+    }
+
+    public void setOcupacao(String ocupacao) {
+        this.ocupacao = ocupacao;
+    }
 
     public String getNome() {
         return nome;
@@ -47,6 +64,14 @@ public class PessoaObj {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     public String getCidade() {
