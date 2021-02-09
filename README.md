@@ -1,9 +1,9 @@
 <h1>Random User With Google Maps</h1>
 
 <h2>About</h2> 
-This is the source code how use randomuser.me User Generator with Google Map Api.
+This is the source code how to use randomuser.me User Generator with Google Map API.
 
-Our goal is use the diverse database Random User Generator, to get data and show in interface, addition that, using the latitude and longitude datas to display where is the user location with Google Maps Api. 
+Our goal is to use the diverse database Random User Generator, to get data and show in interface,in addition that, using the latitude and longitude datas to display where is the user location with Google Maps API. 
 
 <h2>How use Randomuser.me</h2>
 If you have interest to use randomuser.me api too access https://randomuser.me/ or follow they in Twitter page @randomapi.
